@@ -1,0 +1,8 @@
+{
+  "name": "chrome-mcp-bridge",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/guard.test.mjs"
+  }
+}

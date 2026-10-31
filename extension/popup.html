@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 300px;
+    font: 13px/1.5 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+    background: #16181d; color: #e6e8eb; padding: 14px;
+  }
+  h1 { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #6b7280; }
+  .dot.on { background: #10b981; box-shadow: 0 0 8px #10b981; }
+  .dot.wait { background: #f59e0b; }
+  .sub { color: #8b9199; font-size: 11px; margin-top: 2px; }
+  .status {
+    margin: 12px 0; padding: 10px 12px; border-radius: 8px;
+    background: #1e2128; border: 1px solid #2a2e37;
+  }
+  .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; }
+  .row span:first-child { color: #8b9199; }
+  .row span:last-child { color: #e6e8eb; font-family: ui-monospace, Consolas, monospace; }
+  button {
+    width: 100%; padding: 9px; border: none; border-radius: 7px;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: .15s;
+    background: #2563eb; color: #fff;
+  }
+  button:hover { background: #1d4ed8; }
+  button.off { background: #374151; }
+  button.off:hover { background: #4b5563; }
+  .hint { margin-top: 10px; font-size: 11px; color: #6b7280; line-height: 1.6; }
+  code { background: #262a33; padding: 1px 4px; border-radius: 3px; color: #93c5fd; }
+  .guard {
+    margin-top: 10px; padding: 9px 12px; border-radius: 8px;
+    background: #1a2332; border: 1px solid #1e3a5f;
+  }
+  .guard h2 { font-size: 12px; font-weight: 600; color: #93c5fd; margin-bottom: 6px; }
+  .guard .row { font-size: 11px; }
+  .grow { display: flex; justify-content: space-between; padding: 2px 0; font-size: 11px; }
+  .grow span:first-child { color: #8b9199; }
+  .grow span:last-child { color: #e6e8eb; font-family: ui-monospace, Consolas, monospace; }
+  .pill { display:inline-block; padding:1px 6px; border-radius:8px; font-size:10px; }
+  .pill.on { background:#064e3b; color:#6ee7b7; }
+  .pill.off { background:#3f2a2a; color:#fca5a5; }
+</style>
+</head>
+<body>
+  <h1><span class="dot" id="dot"></span>Chrome MCP Bridge</h1>
+  <div class="sub">把当前标签页接入任意 MCP 客户端</div>
+
+  <div class="status">
+    <div class="row"><span>MCP server</span><span id="s-server">未连接</span></div>
+    <div class="row"><span>已接管标签页</span><span id="s-tab">—</span></div>
+    <div class="row"><span>页面</span><span id="s-url" style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</span></div>
+  </div>
+
+  <button id="btn">连接到 MCP server</button>
+
+  <div class="guard" id="guard-panel">
+    <h2>安全守卫</h2>
+    <div class="grow"><span>总开关</span><span id="g-enabled">—</span></div>
+    <div class="grow"><span>动作间隔</span><span id="g-delay">—</span></div>
+    <div class="grow"><span>分段移动</span><span id="g-mouse">—</span></div>
+    <div class="grow"><span>同域限速</span><span id="g-rate">—</span></div>
+    <div class="grow"><span>敏感动作拦截</span><span id="g-sensitive">—</span></div>
+    <div class="grow"><span>累计拦截 / 限速</span><span id="g-stats">—</span></div>
+  </div>
+
+  <div class="hint">
+    1. 先启动本地 server：<code>node server/dist/index.js</code><br>
+    2. 打开要操作的网页 → 点上面的按钮<br>
+    3. 之后 MCP 客户端就能对这个标签页 click / type / screenshot
+  </div>
+
+<script src="popup.js"></script>
+</body>
+</html>
